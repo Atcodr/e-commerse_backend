@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-require('dotenv')
-const {URI,DB_NAME} = process.env
+require('dotenv').config()
+const URI = process.env.URI
 
 
 function Dbcon(){

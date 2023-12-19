@@ -1,20 +1,62 @@
 const {Schema,model, default: mongoose} = require('mongoose')
 
 const schema = new Schema({
-    name :{
-        type:mongoose.Schema.Types.String,
+    fullname :{
+        type:String,
         trim:true,
         required : [true,"this feild is require"],
-        unique:true
     },
     image : {
-        type : mongoose.Schema.Types.Array,
+        type : Array,
     },
+    mobile :{
+        type:Number,
+        required : [true,"this feild is require"],
+        unique:true,
+        validate : {
+            validator : (value)=>/[0-9]/.test(value),
+            message : ({value})=>`${value} is not a valid number`,
+            max:[10,"please enter 10 digit number"]
+        }
+        
+    },
+    email :{
+        type:String,
+        trim:true,
+        required : [true,"this feild is require"],
+        unique:true,
+        validate:{
+           validator :(value)=>/[\s.@/]/.test(value),
+           message : ({value})=>`${value} is not a valid email id`
+        }
+    },
+    password :{
+        type:String,
+        trim:true,
+        required : [true,"this feild is require"],
+    },
+    address :{
+        type:String,
+        trim:true,
+        default : ""
+    },
+    isActive :{
+        type:Boolean,
+        default : true
+    },
+    cart_items : {
+        type : mongoose.Schema.Types.Array,
+        default : []
+    },
+    orders : {
+        type:mongoose.Schema.Types.Array,
+         default : []
+    }
 },{timestamps:true})
 
-const Modal = model("User",schema)
+const userModal = model("User",schema)
 
-module.exports = Modal
+module.exports = userModal
 
 
 
