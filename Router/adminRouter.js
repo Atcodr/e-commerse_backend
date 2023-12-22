@@ -3,6 +3,9 @@ const categoryModal = require('../model/categoryModel')
 const adminRouter = express.Router()
 
 // adminRouter.use('/payment',paymentRouter)
+adminRouter.get('/',(req,res)=>{
+    res.json("hello")
+})
 
 adminRouter.post("/addcategory", async (req,res)=>{
     const {cate_name} = req.body
