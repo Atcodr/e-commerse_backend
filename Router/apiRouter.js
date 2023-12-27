@@ -2,6 +2,7 @@ const express = require('express')
 const userRouter = require('./userRouter')
 const productRouter = require('./productRouter')
 const adminRouter = require('./adminRouter')
+const cartRouter = require('./cartRouter')
 const { verifyToken, generateToken } = require('../token/tokenManager')
 const userModal = require('../model/usermodel')
 const apiRouter = express.Router()
@@ -68,7 +69,7 @@ apiRouter.use("/admin", async (req, res, next) => {
     }
 })
 apiRouter.use('/admin', adminRouter)
-// apiRouter.use('/cart',cartRouter)
+apiRouter.use("/cart",cartRouter)
 // apiRouter.use('/payment',paymentRouter)
 
 
