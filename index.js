@@ -8,10 +8,6 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// app.use("/api",(req,res,next)=>{
-//  next()
-// 
-
 app.get("/",(req,res)=>{
     res.send("server is running")
 })

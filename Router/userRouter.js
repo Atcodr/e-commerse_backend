@@ -1,26 +1,12 @@
 const express = require('express');
 const userModal = require('../model/usermodel');
 const { generateToken } = require('../token/tokenManager');
+const Upload = require('../multer/multer');
 
 const userRouter = express.Router()
 require('dotenv').config()
 
 
-
-
-userRouter.post("/add", async(req,res)=>{
-    console.log(req.body);
-   try {
-       const {status,reqdata} = await User.save(req.body)
-       if(status){
-        res.json(reqdata)
-       }else{
-        res.json({status,data:null})
-       }
-   } catch (error) {
-    console.log(error);
-   }
-})
 
 userRouter.get('/allusers',async(req,res)=>{
     try {
@@ -33,16 +19,20 @@ userRouter.get('/allusers',async(req,res)=>{
     }
 })
 
-userRouter.post("/login", async (req,res)=>{
-    const {email,password} = req.body
+
+
+userRouter.put("/upload",Upload.single("upload"),(req,res)=>{
+    const upload = req.body
+    const id = req.data._id
     try {
-        let response = await userModal.findOne({email,password})
-        if(response){
-            let token = generateToken({name:response.fullname,id:response._id})
-            res.json({staus:true,data:response,token})
+        const data = userModal.findByIdAndUpdate(id,{image:upload})
+        if(data){
+            res.json(data)
+        }else{
+            res.json({status:false,msg:"not found"})
         }
     } catch (error) {
-        console.log(error);
+        console.log(error.message)
     }
 })
 

@@ -7,7 +7,7 @@ const schema = new Schema({
         required : [true,"this feild is require"],
     },
     image : {
-        type : Array,
+        type : String,
     },
     mobile :{
         type:Number,
