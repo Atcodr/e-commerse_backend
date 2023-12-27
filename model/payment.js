@@ -9,6 +9,14 @@ const schema = new Schema({
         type:Number,
         required: [true,"this field is required"],
 
-      }
+      },
+      payment_mode:{
+        type:String,
+        required: [true,"this field is required"],
+
+      },
+      
+
+
 
 })
