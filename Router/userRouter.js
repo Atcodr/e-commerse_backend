@@ -2,6 +2,10 @@ const express = require('express');
 const userModal = require('../model/usermodel');
 const { generateToken } = require('../token/tokenManager');
 const Upload = require('../multer/multer');
+// const fs = require('fs')
+// const path = require('path')
+require('dotenv').config()
+const PORT = process.env.PORT || 3000
 
 const userRouter = express.Router()
 require('dotenv').config()
@@ -21,11 +25,13 @@ userRouter.get('/allusers',async(req,res)=>{
 
 
 
-userRouter.put("/upload",Upload.single("upload"),(req,res)=>{
-    const upload = req.body
+userRouter.put("/upload",Upload.single("image"),async(req,res)=>{
     const id = req.data._id
+    const url = `${req.protocol}://${req.hostname}:${PORT}/upload/${req.file.filename}`
+    // console.log(url);
     try {
-        const data = userModal.findByIdAndUpdate(id,{image:upload})
+        let data = await userModal.findOneAndUpdate(id,{image:url})
+        // old way of uploading image// const data = await userModal.findOneAndUpdate(id,{image:fs.readFileSync(path.join(__dirname + '../../upload/' + req.file.filename))})
         if(data){
             res.json(data)
         }else{
