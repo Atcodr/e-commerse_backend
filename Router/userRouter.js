@@ -2,8 +2,6 @@ const express = require('express');
 const userModal = require('../model/usermodel');
 const { generateToken } = require('../token/tokenManager');
 const Upload = require('../multer/multer');
-// const fs = require('fs')
-// const path = require('path')
 require('dotenv').config()
 const PORT = process.env.PORT || 3000
 
